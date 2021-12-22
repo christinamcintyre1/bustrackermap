@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Real Time Bus Tracker</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+<div id="map"></div>
+
+<div class="map-overlay top">
+  <button style="color: red" Style="font-size: 1em" onclick="move()">
+    Show stops From Boulder Station to TableMesa Dr
+  </button>
+</div>
+ 
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoic29mdGV4cGVyaW1lbnQiLCJhIjoiY2tjMngyZm9rMDFvajJzczJ3aWo0bnh6aiJ9.Bc_qK9Xf8SFBXkFM_x2gpg';
+
+  var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-105.251236, 40.024425],
+      zoom: 12
+  });
+ 
+var marker = new mapboxgl.Marker()
+    .setLngLat([-105.251236, 40.024425])
+    .addTo(map);
+
+const busStops = [
+    [-105.261206, 39.996525],
+    [-105.254723, 39.989091],
+    [-105.248463, 39.985601]
+]
+
+let counter = 0;
+function move(){
+  setTimeout(()=>{
+    if (counter >= busStops.length) return;
+    marker.setLngLat(busStops[counter]);
+    counter++;
+    move();
+  },1000); 
+}
+
+</script>
+ 
+</body>
+</html>
+
